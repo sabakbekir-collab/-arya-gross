@@ -10,7 +10,7 @@ RUN corepack prepare pnpm@10 --activate
 # Tüm projeyi kopyala
 COPY . .
 
-# Bağımlılıkları kilit dosyası hatasına takılmadan kur
+# Bağımlılıkları kur
 RUN pnpm install --no-frozen-lockfile
 
 # Projeyi build et
@@ -20,7 +20,8 @@ RUN pnpm --filter @workspace/api-server run build
 
 
 # Production
-FROM node:24-slim AS runner
+
+FROM node:24-slim
 
 WORKDIR /app
 
@@ -30,7 +31,7 @@ ENV PORT=5000
 RUN corepack enable
 RUN corepack prepare pnpm@10 --activate
 
-# Build edilmiş tüm gerekli dosyaları al
+# Gerekli dosyaları builder'dan al
 COPY --from=builder /app/package.json ./
 COPY --from=builder /app/pnpm-workspace.yaml ./
 COPY --from=builder /app/pnpm-lock.yaml ./
@@ -44,4 +45,4 @@ RUN pnpm install --no-frozen-lockfile --prod
 
 EXPOSE 5000
 
-CMD ["node", "--enable-source-maps", "artifacts/api-server/dist/index.js"]
+CMD ["node", "artifacts/api-server/dist/index.js"]
