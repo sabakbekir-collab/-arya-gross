@@ -1,0 +1,7 @@
+packages:
+  - "artifacts/api-server"
+  - "artifacts/firat-gida"
+  - "lib/api-client-react"
+  - "lib/api-spec"
+  - "lib/api-zod"
+  - "lib/db"

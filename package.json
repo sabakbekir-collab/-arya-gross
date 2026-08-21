@@ -1,0 +1,15 @@
+{
+  "name": "arya-gross",
+  "version": "1.0.0",
+  "private": true,
+  "packageManager": "pnpm@10.12.4",
+  "scripts": {
+    "dev": "bash arya-run.sh",
+    "start": "bash arya-run.sh",
+    "dev:frontend": "pnpm --filter @workspace/firat-gida dev",
+    "dev:backend": "pnpm --filter @workspace/api-server dev",
+    "typecheck": "pnpm --filter @workspace/firat-gida typecheck && pnpm --filter @workspace/api-server typecheck",
+    "build": "pnpm --filter @workspace/firat-gida build && pnpm --filter @workspace/api-server build",
+    "healthcheck": "curl -fsS http://127.0.0.1:${PORT:-8080}/api/health"
+  }
+}
